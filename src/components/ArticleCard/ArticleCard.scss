@@ -1,5 +1,4 @@
 .articleCard {
-  height: 530px;
   border: 1px solid #EAEAEA;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
@@ -15,21 +14,22 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     overflow: hidden;
+    flex: none;
 
     & img {
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: cover;
     }
   }
 
   &__inner {
+    height: 100%;
     margin: 25px;
     display: flex;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-direction: column;
-
   }
 
   &__info {
@@ -44,15 +44,7 @@
     color: rgba(#363636, 0.6);
     margin-bottom: 24px;
     padding-left: 23px;
-
-    &::before {
-      content: '';
-      display: block;
-      width: 19px;
-      height: 19px;
-      background: url("../../assets/img/calendar.png") no-repeat 1px 1px;
-      background-size: contain;
-    }
+    background: url("../../assets/img/calendar.png") no-repeat left 2px;
   }
 
   &__title {
@@ -61,25 +53,33 @@
     font-size: 24px;
     line-height: 29px;
     margin-bottom: 20px;
+    & span{
+      background-color: yellow;
+    }
   }
 
   &__summary {
     margin-bottom: 20px;
+    & span{
+      background-color: yellow;
+    }
   }
 
   &__link {
     font-weight: 700;
     font-size: 16px;
     color: #363636;
-    justify-self: flex-end;
-    position: absolute;
-    left: 25px;
-    bottom: 25px;
     transition: .3s linear;
+    position: relative;
     z-index: 5;
 
-    &:hover {
-      color: black;
+    &::after {
+      content: '→';
+      font-size: 30px;
+    }
+
+    &:hover{
+      color: darkblue;
     }
   }
 

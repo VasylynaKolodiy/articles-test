@@ -1,4 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import {IArticle} from "../../models/IArticle";
 
 export const articlesApi = createApi({
   reducerPath: 'articles/Api',
@@ -9,10 +10,15 @@ export const articlesApi = createApi({
   endpoints: build => ({
     getArticles: build.query({
       query: () => ({
-        url: '/articles',
+        url: '/articles?_limit=100',
+      })
+    }),
+    getDetailArticle: build.query<IArticle, string>({
+      query: (id: string) => ({
+        url: `/articles/${id}`,
       })
     })
   })
 })
 
-export const {useGetArticlesQuery} = articlesApi
+export const {useGetArticlesQuery, useGetDetailArticleQuery} = articlesApi

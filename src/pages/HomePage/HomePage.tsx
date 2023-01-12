@@ -1,14 +1,13 @@
 import React from 'react';
 import {useGetArticlesQuery} from '../../store/articles/articles.api'
-import ArticleList from "../../components/ArticleList/ArticleList";
+import Filter from "../../components/Filter/Filter";
 
 const HomePage = () => {
   const {isLoading, isError, data} = useGetArticlesQuery(null);
 
-  console.log(data, 'data')
   return (
     <main className='homePage'>
-      <ArticleList articlesState={data} />
+      <Filter articles={data}/>
     </main>
   );
 };
