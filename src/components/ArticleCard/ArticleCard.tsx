@@ -27,7 +27,7 @@ const ArticleCard: React.FC<IArticleCard> = ({article}) => {
             })}
           </div>
           <h3 className='articleCard__title' dangerouslySetInnerHTML={{__html: article.title}}/>
-          <p className='articleCard__summary'>{article.summary.slice(0, 100)}...</p>
+          <p className='articleCard__summary' dangerouslySetInnerHTML={{__html: article.summary.slice(0, 100) + '...'}}/>
         </div>
 
         <Link className='articleCard__link' to={`/${article.id}`}>Read more</Link>

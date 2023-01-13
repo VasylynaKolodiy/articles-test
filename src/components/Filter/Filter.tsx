@@ -11,26 +11,42 @@ interface IFilter {
 const Filter: React.FC<IFilter> = ({articles}) => {
 
   const [search, setSearch] = useState('')
-  const debounced = useDebounce(search, 300)
+  const debounced = useDebounce(search)
+
+  const [filteredArticles, setFilteredArticles] = useState(articles)
 
   useEffect(() => {
-    console.log(debounceArr[0], 'debounceArr')
+    console.log(2)
+    console.log(debounced, 'debounced')
+    setFilteredArticles(filterArticles()?.filter((article) => article.title.includes('span'))
+      .sort((a, b) => b['counts'] - a['counts']))
   }, [debounced])
 
-  const debounceArr = debounced.split(' ')
+  let debounceArr = debounced.split(' ').map((elem) => elem.toLowerCase())
+  console.log(filteredArticles, 'filteredArticles')
+
+  const filterArticles = () => {
+
+    return articles?.map((article) => {
+        let counts = 0;
+        let resTitle = article.title.split(' ')?.map((word) => {
+          let number = debounceArr.includes(word.toLowerCase()) ? (counts = counts + 2) : counts ;
+          return debounceArr.includes(word.toLowerCase()) ? `<span>${word}</span>` : word;
+
+        })
+
+      let resSummary = article.summary.split(' ')?.map((word) => {
+        let number = debounceArr.includes(word.toLowerCase()) ? (counts = counts + 1) : counts;
+        return debounceArr.includes(word.toLowerCase()) ? `<span>${word}</span>` : word;
+
+      })
+        return ({...article, title: resTitle.join(' '), summary: resSummary.join(' '), counts: counts})
+      }
+    )
+  }
 
 
-  //const aa =  articles?.filter((article) => article?.title.toLowerCase().split(' ').includes(debounceArr[0]))
 
-  const aa = articles?.map((article) =>
-     ({...article, title: article?.title.replaceAll(debounceArr[0], `<span>${debounceArr[0]}</span>`)})
-  )
-
-  const bb = aa.filter((elem) => elem.title.includes('<span') && elem)
-
-
-
-  console.log(aa, 'aa')
   const onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   }
@@ -48,9 +64,9 @@ const Filter: React.FC<IFilter> = ({articles}) => {
         onChange={(e) => onChangeSearch(e)}
       />
 
-      <p className='filter__results'>Results: {aa?.length}</p>
+      {debounced && <p className='filter__results'>Results: {filteredArticles?.length}</p>}
 
-      <ArticleList articlesState={ debounceArr.length>0 ? bb : articles} />
+      <ArticleList articlesState={debounced ? filteredArticles : articles}/>
     </section>
   );
 };
