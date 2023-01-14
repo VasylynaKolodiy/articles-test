@@ -1,6 +1,6 @@
 export interface IArticle {
   id: number,
-  counts: number,
+  priority: number,
   featured: boolean,
   title: string,
   url: string,

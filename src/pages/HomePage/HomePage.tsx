@@ -1,13 +1,47 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useGetArticlesQuery} from '../../store/articles/articles.api'
 import Filter from "../../components/Filter/Filter";
+import ArticleList from "../../components/ArticleList/ArticleList";
+import Pagination from "@mui/material/Pagination";
+import {IArticle} from "../../models/IArticle";
+import './HomePage.scss'
+import SkeletonsHomePage from "../../components/Skeletons/SkeletonsHomePage";
+import {LIMIT} from "../../assets/helpers/variables";
 
 const HomePage = () => {
-  const {isLoading, isError, data} = useGetArticlesQuery(null);
+  const {isLoading, data: articles = []} = useGetArticlesQuery(null);
+  const [filteredArticles, setFilteredArticles] = useState<IArticle[]>(articles);
+
+  let [pageNumber, setPageNumber] = useState(1);
+  const TOTAL_COUNT = filteredArticles.length
+  let countOfPages = TOTAL_COUNT && Math.ceil(TOTAL_COUNT / LIMIT)
 
   return (
     <main className='homePage'>
-      <Filter articles={data}/>
+      <Filter
+        articles={articles}
+        filteredArticlesLength={filteredArticles.length}
+        setFilteredArticles={setFilteredArticles}
+        setPageNumber={setPageNumber}
+      />
+
+      {isLoading
+        ? <SkeletonsHomePage/>
+        : <>
+          <ArticleList articlesState={filteredArticles?.slice(pageNumber * LIMIT - LIMIT, pageNumber * LIMIT)}/>
+
+          {countOfPages > 1 &&
+          (<Pagination
+              className='pagination'
+              count={countOfPages}
+              size="large"
+              page={pageNumber}
+              onChange={(event, value) => setPageNumber(value)}
+            />
+          )}
+        </>
+      }
+
     </main>
   );
 };
