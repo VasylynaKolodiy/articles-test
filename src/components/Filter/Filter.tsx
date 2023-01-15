@@ -59,7 +59,7 @@ const Filter: React.FC<IFilter> = (
       <input
         className='filter__input'
         type='text'
-        placeholder='search...'
+        placeholder='Search...'
         value={search}
         onChange={(e) => onChangeSearch(e)}
       />
