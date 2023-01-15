@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
+import Pagination from "@mui/material/Pagination";
 import {useGetArticlesQuery} from '../../store/articles/articles.api'
 import Filter from "../../components/Filter/Filter";
 import ArticleList from "../../components/ArticleList/ArticleList";
-import Pagination from "@mui/material/Pagination";
 import {IArticle} from "../../models/IArticle";
 import './HomePage.scss'
 import SkeletonsHomePage from "../../components/Skeletons/SkeletonsHomePage";
-import {LIMIT} from "../../assets/helpers/variables";
+import {LIMIT} from "../../constants";
 
 const HomePage = () => {
-  const {isLoading, data: articles = []} = useGetArticlesQuery(null);
+  const {isFetching, data: articles = []} = useGetArticlesQuery(null, {refetchOnMountOrArgChange: true});
   const [filteredArticles, setFilteredArticles] = useState<IArticle[]>(articles);
 
-  let [pageNumber, setPageNumber] = useState(1);
-  const TOTAL_COUNT = filteredArticles.length
-  let countOfPages = TOTAL_COUNT && Math.ceil(TOTAL_COUNT / LIMIT)
+  let [pageNumber, setPageNumber] = useState<number>(1);
+  const TOTAL_COUNT = filteredArticles.length;
+  let countOfPages = TOTAL_COUNT && Math.ceil(TOTAL_COUNT / LIMIT);
 
   return (
     <main className='homePage'>
@@ -25,7 +25,7 @@ const HomePage = () => {
         setPageNumber={setPageNumber}
       />
 
-      {isLoading
+      {isFetching
         ? <SkeletonsHomePage/>
         : <>
           <ArticleList articlesState={filteredArticles?.slice(pageNumber * LIMIT - LIMIT, pageNumber * LIMIT)}/>
@@ -41,7 +41,6 @@ const HomePage = () => {
           )}
         </>
       }
-
     </main>
   );
 };

@@ -1,10 +1,12 @@
-.skeletonsArticlePage{
+.skeletonsArticlePage {
 
-  &__image{
-    width: 100%;
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
-  &__content{
+  &__content {
     background: #FFFFFF;
     border: 1px solid #EAEAEA;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
@@ -14,17 +16,8 @@
     margin-bottom: 35px;
   }
 
-  &__title{
-    margin-bottom: 50px;
-  }
-
-  &__summary{
-    text-align: left;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 150%;
-    color: #000000;
+  &__title {
+    margin: 0 auto 50px auto;
   }
 
   &__link {
@@ -32,5 +25,4 @@
     text-align: left;
     margin-left: 75px;
   }
-
 }

@@ -10,7 +10,7 @@ export const articlesApi = createApi({
   endpoints: build => ({
     getArticles: build.query({
       query: () => ({
-        url: '/articles?_limit=100',
+        url: '/articles?_limit=200',
       })
     }),
     getDetailArticle: build.query<IArticle, string>({

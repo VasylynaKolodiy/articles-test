@@ -53,14 +53,16 @@
     font-size: 24px;
     line-height: 29px;
     margin-bottom: 20px;
-    & span{
+
+    & span {
       background-color: yellow;
     }
   }
 
   &__summary {
     margin-bottom: 20px;
-    & span{
+
+    & span {
       background-color: yellow;
     }
   }
@@ -74,12 +76,19 @@
     z-index: 5;
 
     &::after {
-      content: '→';
-      font-size: 30px;
+      content: url("../../assets/img/arrow.svg");
+      width: 12px;
+      height: 10px;
+      margin-left: 6px;
+      transition: .3s linear;
     }
 
-    &:hover{
-      color: darkblue;
+    &:hover {
+      &::after {
+        content: url("../../assets/img/arrow.svg");
+        margin-right: -7px;
+        margin-left: 13px;
+      }
     }
   }
 

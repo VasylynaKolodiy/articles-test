@@ -6,6 +6,7 @@
     left: 0;
     height: 245px;
     width: 100%;
+
     & img{
       width: 100%;
       height: 100%;
@@ -18,7 +19,6 @@
     border: 1px solid #EAEAEA;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
     border-radius: 5px;
-
     margin-top: 100px;
     padding: 35px 75px 50px 75px;
     position: relative;
@@ -39,7 +39,7 @@
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
-    line-height: 150%;
+    line-height: 27px;
     color: #000000;
   }
 
@@ -54,15 +54,20 @@
     margin-left: 75px;
 
     &::before {
-      content: '←';
-      font-size: 30px;
-      position: relative;
-      top: -5px;
+      content: url("../../assets/img/arrow.svg");
       margin-right: 6px;
+      width: 12px;
+      height: 10px;
+      display: inline-block;
+      transform: rotateX(0deg) rotateY(180deg);
+      transition: .3s linear;
     }
 
     &:hover{
-      color: darkblue;
+      &::before{
+        margin-left: -7px;
+        margin-right: 13px;
+      }
     }
   }
 }

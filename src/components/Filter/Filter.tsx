@@ -3,7 +3,6 @@ import './Filter.scss'
 import {IArticle} from "../../models/IArticle";
 import {useDebounce} from "../../hooks/debounce";
 
-
 interface IFilter {
   articles: IArticle[],
   filteredArticlesLength: number,
@@ -12,19 +11,21 @@ interface IFilter {
 }
 
 const Filter: React.FC<IFilter> = (
-  {articles,
+  {
+    articles,
     filteredArticlesLength,
     setFilteredArticles,
-    setPageNumber}) => {
+    setPageNumber,
+  }) => {
 
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState<string>('')
   const debounced = useDebounce(search)
   let debounceArr = debounced.split(' ').map((elem) => elem.toLowerCase())
 
   useEffect(() => {
     debounced
-      ? setFilteredArticles(filterArticles()?.filter((article) => article.title.includes('span'))
-      .sort((a, b) => b['priority'] - a['priority']))
+      ? setFilteredArticles(filterArticles()?.filter((article) => article.priority)
+        .sort((a, b) => b.priority - a.priority))
       : setFilteredArticles(articles)
     setPageNumber(1)
   }, [debounced, articles])
@@ -32,15 +33,18 @@ const Filter: React.FC<IFilter> = (
   const filterArticles = () => {
     return articles?.map((article) => {
       let priority = 0;
-      let resTitle = article.title.split(' ')?.map((word) => {
-        let priorityNumber = debounceArr.includes(word.toLowerCase()) ? (priority = priority + 2) : priority;
+
+      const resTitle = article.title.split(' ')?.map((word) => {
+        if (debounceArr.includes(word.toLowerCase())) priority += 2;
         return debounceArr.includes(word.toLowerCase()) ? `<span>${word}</span>` : word;
-      })
-      let resSummary = article.summary.split(' ')?.map((word) => {
-        let priorityNumber = debounceArr.includes(word.toLowerCase()) ? (priority = priority + 1) : priority;
+      }).join(' ')
+
+      const resSummary = article.summary.split(' ')?.map((word) => {
+        if (debounceArr.includes(word.toLowerCase())) priority += 1;
         return debounceArr.includes(word.toLowerCase()) ? `<span>${word}</span>` : word;
-      })
-      return ({...article, title: resTitle.join(' '), summary: resSummary.join(' '), priority: priority})
+      }).join(' ')
+
+      return ({...article, title: resTitle, summary: resSummary, priority: priority})
     })
   }
 

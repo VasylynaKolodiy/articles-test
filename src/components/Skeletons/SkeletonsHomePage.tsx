@@ -1,14 +1,13 @@
 import React from 'react';
 import Skeleton from "@mui/material/Skeleton";
 import './SkeletonsHomePage.scss'
-import {LIMIT} from "../../assets/helpers/variables";
+import {LIMIT} from "../../constants";
 
 const SkeletonsHomePage = () => {
   const skeletonsList = Array.from({length: LIMIT}, (_, index) => index + 1);
 
   return (
     <section className='skeletons'>
-
       <div className='skeletons__list'>
 
         {skeletonsList.map((item, i) =>
@@ -48,7 +47,6 @@ const SkeletonsHomePage = () => {
                 width={100}
                 height={24}
               />
-
             </div>
           </div>
         )}

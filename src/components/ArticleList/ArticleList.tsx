@@ -1,5 +1,5 @@
 import React from 'react';
-import { IArticle } from '../../models/IArticle';
+import {IArticle} from '../../models/IArticle';
 import ArticleCard from "../ArticleCard/ArticleCard";
 import './ArticleList.scss'
 

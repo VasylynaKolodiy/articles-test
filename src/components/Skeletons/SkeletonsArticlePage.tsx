@@ -1,43 +1,39 @@
 import React from 'react';
 import Skeleton from "@mui/material/Skeleton";
-import './SkeletonsHomePage.scss'
+import './SkeletonsArticlePage.scss'
 
-const SkeletonsHomePage = () => {
-  return (
-    <section className='skeletonsArticlePage'>
+const SkeletonsHomePage = () => (
+  <section className='skeletonsArticlePage'>
+    <Skeleton
+      className='skeletonsArticlePage__image'
+      variant="rectangular"
+      width='100%'
+      height={245}
+    />
+
+    <div className='articlePage__content'>
       <Skeleton
-        className='skeletonsArticlePage__image'
+        className='skeletonsArticlePage__title'
         variant="rectangular"
-        width={100}
-        height={245}
+        width='80%'
+        height={29}
       />
 
-      <div className='articlePage__content'>
-        <Skeleton
-          className='skeletonsArticlePage__title'
-          variant="rectangular"
-          width={100}
-          height={21}
-        />
-
-        <Skeleton
-          className='skeletonsArticlePage__summary'
-          variant="rectangular"
-          width={100}
-          height={21}
-        />
-
-      </div>
-
       <Skeleton
-        className='skeletonsArticlePage__link'
+        className='skeletonsArticlePage__summary'
         variant="rectangular"
-        width={100}
-        height={21}
+        width='100%'
+        height={250}
       />
-    </section>
+    </div>
 
-  );
-};
+    <Skeleton
+      className='skeletonsArticlePage__link'
+      variant="rectangular"
+      width={100}
+      height={21}
+    />
+  </section>
+);
 
 export default SkeletonsHomePage;

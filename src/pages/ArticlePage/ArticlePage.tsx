@@ -1,12 +1,12 @@
 import React from 'react';
+import {Link, useParams} from "react-router-dom";
 import './ArticlePage.scss'
 import {useGetDetailArticleQuery} from "../../store/articles/articles.api";
-import {Link, useParams} from "react-router-dom";
 import SkeletonsArticlePage from '../../components/Skeletons/SkeletonsArticlePage';
 
 const ArticlePage = () => {
-  const params = useParams().id;
-  const {isLoading, data} = useGetDetailArticleQuery(String(params));
+  const {id} = useParams();
+  const {isLoading, data} = useGetDetailArticleQuery(String(id));
 
   return (
     <main className='articlePage'>
@@ -23,9 +23,7 @@ const ArticlePage = () => {
             <p className='articlePage__summary'>
               {data?.summary}
             </p>
-
           </div>
-
           <Link className='articlePage__link' to='/'>Back to homepage</Link>
         </>
       }
