@@ -20,7 +20,6 @@ const Filter: React.FC<IFilter> = (
 
   const [search, setSearch] = useState<string>('')
   const debounced = useDebounce(search)
-  let debounceArr = debounced.split(' ').map((elem) => elem.toLowerCase())
 
   useEffect(() => {
     debounced
@@ -28,9 +27,10 @@ const Filter: React.FC<IFilter> = (
         .sort((a, b) => b.priority - a.priority))
       : setFilteredArticles(articles)
     setPageNumber(1)
-  }, [debounced, articles])
+  }, [debounced, articles]) //eslint-disable-line
 
   const filterArticles = () => {
+    const debounceArr = debounced.split(' ').map((elem) => elem.toLowerCase());
     return articles?.map((article) => {
       let priority = 0;
 
